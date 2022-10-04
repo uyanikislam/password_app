@@ -28,9 +28,9 @@ app.post("/upload", upload.single("file"), async (req, res) => {
     fileData.password = await bcrypt.hash(req.body.password, 10);
   }
   const file = await File.create(fileData);
-  console.log(file);
-  res.send(file.originalName);
+  res.render("index", {fileLink: `${req.headers.origin}/file/${file.id}`})
 });
+app.get("/file/:id",(req,res)=>{})
 
 app.listen(process.env.PORT, (req, res) => {
   console.log("server ok");
